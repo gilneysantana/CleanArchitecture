@@ -13,7 +13,7 @@ export default function Main({ match }) {
     //essa funcao sera invocada sempre que o id do usuario logado mudar 
     useEffect(() => {
         async function loadUsers() {
-            const response = await api.get('/devs', {
+            const response = await api.get('/deCUvs', {
                 headers: {
                     user: match.params.id,
                 }

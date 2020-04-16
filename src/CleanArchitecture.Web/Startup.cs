@@ -18,8 +18,21 @@ namespace CleanArchitecture.Web
 
 		public IConfiguration Configuration { get; }
 
+		//readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 		public IServiceProvider ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(
+								  builder =>
+								  {
+									  builder.WithOrigins("http://localhost:3000")
+										.AllowAnyHeader()
+										.AllowAnyMethod();
+								  });
+			});
+
 			services.Configure<CookiePolicyOptions>(options =>
 			{
 				options.CheckConsentNeeded = context => true;
@@ -42,7 +55,8 @@ namespace CleanArchitecture.Web
                 config.Path = "/listservices";
             });
 
-            return ContainerSetup.InitializeWeb(Assembly.GetExecutingAssembly(), services);
+
+			return ContainerSetup.InitializeWeb(Assembly.GetExecutingAssembly(), services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +72,7 @@ namespace CleanArchitecture.Web
 				app.UseHsts();
 			}
 			app.UseRouting();
+			app.UseCors();
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
