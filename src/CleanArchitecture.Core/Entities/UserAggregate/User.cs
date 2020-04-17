@@ -7,16 +7,20 @@ namespace CleanArchitecture.Core.Entities.UserAggregate
 {
     public class User : BaseEntity
     {
-        public string Nome { get; set; } 
+        public string Name { get; set; } 
         public Email Email { get; set; }
         public Credentials Credentials { get; private set; }
-        public IList<Meal> Meals { get; set; }
+
+        private readonly List<Meal> _meals = new List<Meal>();
+        public IReadOnlyCollection<Meal> Meals => _meals.AsReadOnly();
+
+
 
         public void AddMeal(int calories, DateTime dateTime)
         {
             //pode repetir data/hora?
 
-            Meals.Add(new Meal());
+            _meals.Add(new Meal());
         }
 
         public void ChangePassword(string currentPassword, string newPassword)
