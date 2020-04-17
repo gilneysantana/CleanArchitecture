@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CleanArchitecture.Core.Entities.UserAggregate
+namespace CleanArchitecture.Core.Entities
 {
     public class Email
     {

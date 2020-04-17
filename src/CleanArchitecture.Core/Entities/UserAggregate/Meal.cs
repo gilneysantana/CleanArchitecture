@@ -2,7 +2,7 @@
 using CleanArchitecture.SharedKernel;
 using System;
 
-namespace CleanArchitecture.Core.Entities.UserAggregate
+namespace CleanArchitecture.Core.Entities
 {
     public class Meal : BaseEntity
     {

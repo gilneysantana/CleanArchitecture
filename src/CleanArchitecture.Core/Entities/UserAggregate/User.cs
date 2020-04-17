@@ -2,14 +2,15 @@
 using CleanArchitecture.SharedKernel;
 using System.Collections.Generic;
 using System;
+using CleanArchitecture.Core.Exceptions;
 
-namespace CleanArchitecture.Core.Entities.UserAggregate
+namespace CleanArchitecture.Core.Entities
 {
     public class User : BaseEntity
     {
         public string Name { get; set; } 
         public Email Email { get; set; }
-        public Credentials Credentials { get; private set; }
+        public Credentials Credentials { get; set; }
 
         private readonly List<Meal> _meals = new List<Meal>();
         public IReadOnlyCollection<Meal> Meals => _meals.AsReadOnly();
@@ -25,6 +26,9 @@ namespace CleanArchitecture.Core.Entities.UserAggregate
 
         public void ChangePassword(string currentPassword, string newPassword)
         {
+            if (Credentials.Password != Credentials.EncriptPassword(currentPassword))
+                throw new AppException("Wrong password");
+
             this.Credentials = this.Credentials.ChangePassword(currentPassword, newPassword);
 
             //Evento para notificar usuário?

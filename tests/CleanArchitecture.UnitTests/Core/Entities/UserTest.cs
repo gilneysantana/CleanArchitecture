@@ -1,6 +1,7 @@
 ﻿using CleanArchitecture.Core.Entities;
 using CleanArchitecture.Core.Events;
 using System.Linq;
+using System;
 using Xunit;
 
 namespace CleanArchitecture.UnitTests.Core.Entities
@@ -10,13 +11,29 @@ namespace CleanArchitecture.UnitTests.Core.Entities
         [Fact]
         public void SetsIsDoneToTrue()
         {
-            var item = new UserBuilder()
+            var user = new UserBuilder()
                 .WithDefaultValues()
                 .Build();
 
-            item.AddMeal(100, new System.DateTime(2020,1,1));
+            user.AddMeal(100, new DateTime(2020,1,1));
 
-            Assert.True(item.Meals.Any());
+            Assert.Equal(1, user.Meals.Count);
+        }
+
+        [Fact]
+        public void ChangeCredentials()
+        {
+            string newPassword = "newPassword";
+
+            var user = new UserBuilder()
+                .WithDefaultValues()
+                .Credentials("login", "password")
+                .Build();
+
+            user.ChangePassword("password", newPassword);
+
+            Assert.Equal(Credentials.EncriptPassword(newPassword), user.Credentials.Password);
+
         }
 
         //[Fact]

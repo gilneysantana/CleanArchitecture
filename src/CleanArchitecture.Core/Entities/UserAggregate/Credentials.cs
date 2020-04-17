@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CleanArchitecture.Core.Entities.UserAggregate
+namespace CleanArchitecture.Core.Entities
 {
     public class Credentials
     {
@@ -12,7 +12,7 @@ namespace CleanArchitecture.Core.Entities.UserAggregate
         public Credentials(string username, string password)
         {
             Username = username;
-            Password = password;
+            Password = EncriptPassword(password);
         }
 
         internal Credentials ChangePassword(string currentPassword, string newPassword)
@@ -23,7 +23,7 @@ namespace CleanArchitecture.Core.Entities.UserAggregate
             return this;
         }
 
-        private string EncriptPassword(string clearPassword)
+        public static string EncriptPassword(string clearPassword)
         {
             return "$%@#" + clearPassword + "#@%$";
         }
