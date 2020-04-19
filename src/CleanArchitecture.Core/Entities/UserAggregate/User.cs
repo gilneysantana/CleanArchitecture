@@ -15,6 +15,13 @@ namespace CleanArchitecture.Core.Entities
         private readonly List<Meal> _meals = new List<Meal>();
         public IReadOnlyCollection<Meal> Meals => _meals.AsReadOnly();
 
+        public User() { }
+
+        public User(string name, string email)
+        {
+            Name = name;
+            Email = new Email(email);
+        }
 
 
         public void AddMeal(int calories, DateTime dateTime)

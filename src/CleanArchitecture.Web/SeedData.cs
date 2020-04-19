@@ -25,6 +25,10 @@ namespace CleanArchitecture.Web
             Description = "Make sure all the tests run and review what they are doing."
         };
 
+        public static readonly User user1 = new User { Name = "Gilney" }; 
+        public static readonly User user2 = new User { Name = "Manu" }; 
+        public static readonly User user3 = new User { Name = "Lourdinha" }; 
+
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var dbContext = new AppDbContext(
@@ -47,10 +51,19 @@ namespace CleanArchitecture.Web
             {
                 dbContext.Remove(item);
             }
+            foreach (var user in dbContext.Users)
+            {
+                dbContext.Remove(user);
+            }
             dbContext.SaveChanges();
+
             dbContext.ToDoItems.Add(ToDoItem1);
             dbContext.ToDoItems.Add(ToDoItem2);
             dbContext.ToDoItems.Add(ToDoItem3);
+
+            dbContext.Users.Add(user1);
+            dbContext.Users.Add(user2);
+            dbContext.Users.Add(user3);
 
             dbContext.SaveChanges();
         }

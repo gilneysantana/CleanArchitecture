@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace CleanArchitecture.Web.Api
 {
-    public class LoginController : BaseApiController
+    public class UserController : BaseApiController
     {
         private readonly IRepository _repository;
 
-        public LoginController(IRepository repository)
+        public UserController(IRepository repository)
         {
             _repository = repository;
         }
@@ -20,7 +20,8 @@ namespace CleanArchitecture.Web.Api
         [HttpGet]
         public IActionResult List()
         {
-            return Ok("5e985ec2cc79c97ccca4e235");
+            var items = _repository.List<User>();
+            return Ok(items);
         }
 
         // GET: api/ToDoItems
@@ -37,15 +38,5 @@ namespace CleanArchitecture.Web.Api
             credentials._id = "5e985ec2cc79c97ccca4e235";
             return Ok(credentials);
         }
-
-        //[HttpPatch("{id:int}/complete")]
-        //public IActionResult Complete(int id)
-        //{
-        //    var toDoItem = _repository.GetById<ToDoItem>(id);
-        //    toDoItem.MarkComplete();
-        //    _repository.Update(toDoItem);
-
-        //    return Ok(ToDoItemDTO.FromToDoItem(toDoItem));
-        //}
     }
 }

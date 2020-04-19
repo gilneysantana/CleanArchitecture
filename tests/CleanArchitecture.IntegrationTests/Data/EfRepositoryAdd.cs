@@ -25,20 +25,20 @@ namespace CleanArchitecture.IntegrationTests.Data
         public void AddsUserAndSetsId()
         {
             var repository = GetRepository();
-            var item = new UserBuilder()
+            var user = new UserBuilder()
                 .WithDefaultValues()
                 .Email("teste@gmail.com")
                 .Credentials("gilney", "123456")
                 .Build();
 
-            repository.Add(item);
+            repository.Add(user);
 
-            var newItem = repository.List<User>().FirstOrDefault();
+            var newUser = repository.List<User>().FirstOrDefault();
 
-            Assert.Equal(item, newItem);
-            Assert.Equal(item.Email.Address, newItem.Email.Address);
-            Assert.Equal(item.Credentials.Username, newItem.Credentials.Username);
-            Assert.True(newItem?.Id > 0);
+            Assert.Equal(user, newUser);
+            Assert.Equal(user.Email.Address, newUser.Email.Address);
+            Assert.Equal(user.Credentials.Username, newUser.Credentials.Username);
+            Assert.True(newUser?.Id > 0);
         }
     }
 }
