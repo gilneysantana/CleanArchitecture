@@ -9,7 +9,7 @@ namespace CleanArchitecture.UnitTests.Core.Entities
     public class UserTest 
     {
         [Fact]
-        public void SetsIsDoneToTrue()
+        public void AddMeal()
         {
             var user = new UserBuilder()
                 .WithDefaultValues()
