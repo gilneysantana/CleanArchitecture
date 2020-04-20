@@ -16,7 +16,7 @@ namespace CleanArchitecture.Web.Api
             _repository = repository;
         }
 
-        // GET: api/ToDoItems
+        // GET: api/user
         [HttpGet]
         public IActionResult List()
         {
@@ -24,19 +24,25 @@ namespace CleanArchitecture.Web.Api
             return Ok(items);
         }
 
-        // GET: api/ToDoItems
+        // GET: api/user
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {
-            return Ok("essa veio de Login Controller com id: " + id);
+            var items = _repository.GetById<User>(id);
+            return Ok(items);
         }
 
-        // POST: api/Login
+        // POST: api/user
         [HttpPost]
-        public IActionResult Post([FromBody] LoginDTO credentials)
+        public IActionResult Post([FromBody] UserDTO item)
         {
-            credentials._id = "5e985ec2cc79c97ccca4e235";
-            return Ok(credentials);
+            var user = new User()
+            {
+                Name = item.Name,
+                Email = new Email(item.Email)
+            };
+            _repository.Add(user);
+            return Ok(UserDTO.FromUser(user));
         }
     }
 }
